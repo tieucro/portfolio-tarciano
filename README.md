@@ -18,7 +18,7 @@ npm run preview
 
 ## Projetos do GitHub
 
-A seção de projetos consulta a API pública do GitHub para listar os repositórios públicos próprios de `tieucro`, com linguagem, estrelas, forks e links. Não usa token nem solicita permissões; se a API estiver indisponível ou atingir o limite de requisições, o site mostra um link para o perfil. A CSP permite conexão apenas com a API pública do GitHub além da própria origem.
+A seção de projetos consulta a API pública do GitHub para listar os repositórios públicos próprios de `tieucro`, com linguagem, estrelas, forks e links. A lista é consultada ao abrir o site e a cada cinco minutos enquanto a aba estiver visível. Ao voltar para a aba após esse intervalo, o site consulta novamente. Alterações no perfil aparecem sem precisar republicar o portfólio. Não usa token nem solicita permissões; se a API estiver indisponível ou atingir o limite de requisições, o site mostra um link para o perfil. A CSP permite conexão apenas com a API pública do GitHub além da própria origem.
 
 ## Segurança adicionada
 
@@ -42,7 +42,6 @@ A seção de projetos consulta a API pública do GitHub para listar os repositó
 
 - Troque `public/profile.png` pela sua foto, mantendo o nome.
 - Edite links sociais e e-mail em `src/App.tsx`.
-- Substitua os projetos demonstrativos por projetos reais.
 
 ## Limitações
 
