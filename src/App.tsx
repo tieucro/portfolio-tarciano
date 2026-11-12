@@ -116,12 +116,18 @@ function normalizeCertificateSearch(value: string) {
 }
 
 export default function App() {
+  const [showAllCertificates, setShowAllCertificates] = useState(false)
   const [certificateQuery, setCertificateQuery] = useState('')
   const searchTerms = normalizeCertificateSearch(certificateQuery).trim().split(/\s+/).filter(Boolean)
-  const visibleCertificates = certificates.filter(({ title, issuer, year }) => {
+  const matchingCertificates = certificates.filter(({ title, issuer, year }) => {
     const searchable = normalizeCertificateSearch([title, issuer, year].join(' '))
     return searchTerms.every(term => searchable.includes(term))
   })
+  const certificatePreviewLimit = 6
+  const isSearchingCertificates = searchTerms.length > 0
+  const visibleCertificates = showAllCertificates || isSearchingCertificates
+    ? matchingCertificates
+    : matchingCertificates.slice(0, certificatePreviewLimit)
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [dark, setDark] = useState(true)
@@ -353,24 +359,38 @@ export default function App() {
             ) : visibleCertificates.length === 0 ? (
               <p role="status">Nenhum certificado encontrado.</p>
             ) : (
-              <ul className="row g-3 list-unstyled mb-0">
+              <ul id="certificate-list" className="row g-3 list-unstyled mb-0">
                 {visibleCertificates.map(({ title, issuer, year, verificationUrl }) => {
                   const verification = safeExternalUrl(verificationUrl ?? null)
                   return (
                     <li className="col-md-6 col-lg-4" key={JSON.stringify([title, issuer, year])}>
-                      <article className="project-card">
-                        <h3>{title}</h3>
-                        <p><span aria-hidden="true" className="certificate-check">&#10003;</span> {issuer}{year && <> &middot; {year}</>}</p>
-                        {verification && (
-                          <a href={verification} target="_blank" rel="noopener noreferrer" aria-label={'Verificar certificado de ' + title}>
-                            Verificar certificado &#10003;
-                          </a>
-                        )}
+                      <article className="certificate-card">
+                        <span aria-hidden="true" className="certificate-check">&#10003;</span>
+                        <div className="certificate-card-content">
+                          <h3>{title}</h3>
+                          <p>{issuer}{year && <> &middot; {year}</>}</p>
+                          {verification && (  
+                            <a href={verification} target="_blank" rel="noopener noreferrer" aria-label={'Verificar certificado de ' + title}>  
+                              Verificar certificado &#10003;  
+                            </a>  
+                          )}
+                        </div>
                       </article>
                     </li>
                   )
                 })}
               </ul>
+            )}
+            {!isSearchingCertificates && certificates.length > certificatePreviewLimit && (
+              <button
+                type="button"
+                className="btn btn-outline-custom certificate-toggle"
+                aria-controls="certificate-list"
+                aria-expanded={showAllCertificates}
+                onClick={() => setShowAllCertificates(expanded => !expanded)}
+              >
+                {showAllCertificates ? 'Mostrar menos' : 'Ver todos os certificados (' + certificates.length + ')'}
+              </button>
             )}
           </div>
           <a className="section-scroll" href="#contato" aria-label="Descer para Contato" />
