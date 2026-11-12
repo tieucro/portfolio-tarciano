@@ -359,3 +359,20 @@ main > section { position: relative; }
   .section-scroll { transition: color 180ms ease, border-color 180ms ease; }
 }
 .certificate-check { color: var(--accent); font-weight: 700; }
+
+.certificate-search {
+  width: min(100%, 22rem);
+  min-height: 44px;
+  margin-bottom: 1.5rem;
+  padding: .55rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: .9rem;
+}
+.certificate-search::placeholder { color: var(--muted); }
+.certificate-search:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

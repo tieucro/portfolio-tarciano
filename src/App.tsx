@@ -111,7 +111,18 @@ function FeaturedProject({ repo }: { repo?: GitHubRepo }) {
   )
 }
 
+function normalizeCertificateSearch(value: string) {
+  return value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+}
+
 export default function App() {
+  const [certificateQuery, setCertificateQuery] = useState('')
+  const searchTerms = normalizeCertificateSearch(certificateQuery).trim().split(/\s+/).filter(Boolean)
+  const visibleCertificates = certificates.filter(({ title, issuer, year }) => {
+    const searchable = normalizeCertificateSearch([title, issuer, year].join(' '))
+    return searchTerms.every(term => searchable.includes(term))
+  })
+
   const [menuOpen, setMenuOpen] = useState(false)
   const [dark, setDark] = useState(true)
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([])
@@ -327,11 +338,23 @@ export default function App() {
         <section id="certificados" className="section section-alt" aria-labelledby="certificates-title">
           <div className="container">
             <h2 id="certificates-title">Certificados</h2>
+            {certificates.length > 0 && (
+              <input
+                className="certificate-search"
+                type="search"
+                aria-label="Pesquisar certificados por t?tulo, institui??o ou ano"
+                placeholder="Pesquisar certificados"
+                value={certificateQuery}
+                onChange={event => setCertificateQuery(event.target.value)}
+              />
+            )}
             {certificates.length === 0 ? (
               <p>Nenhum certificado publicado.</p>
+            ) : visibleCertificates.length === 0 ? (
+              <p role="status">Nenhum certificado encontrado.</p>
             ) : (
               <ul className="row g-3 list-unstyled mb-0">
-                {certificates.map(({ title, issuer, year, verificationUrl }) => {
+                {visibleCertificates.map(({ title, issuer, year, verificationUrl }) => {
                   const verification = safeExternalUrl(verificationUrl ?? null)
                   return (
                     <li className="col-md-6 col-lg-4" key={JSON.stringify([title, issuer, year])}>
