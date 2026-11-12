@@ -358,3 +358,4 @@ main > section { position: relative; }
 @media (prefers-reduced-motion: no-preference) {
   .section-scroll { transition: color 180ms ease, border-color 180ms ease; }
 }
+.certificate-check { color: var(--accent); font-weight: 700; }

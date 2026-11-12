@@ -337,10 +337,10 @@ export default function App() {
                     <li className="col-md-6 col-lg-4" key={JSON.stringify([title, issuer, year])}>
                       <article className="project-card">
                         <h3>{title}</h3>
-                        <p>{issuer} ? {year}</p>
+                        <p><span aria-hidden="true" className="certificate-check">&#10003;</span> {issuer}{year && <> &middot; {year}</>}</p>
                         {verification && (
                           <a href={verification} target="_blank" rel="noopener noreferrer" aria-label={'Verificar certificado de ' + title}>
-                            Verificar certificado ?
+                            Verificar certificado &#10003;
                           </a>
                         )}
                       </article>
@@ -350,7 +350,7 @@ export default function App() {
               </ul>
             )}
           </div>
-          <a className="section-scroll" href="#contato" aria-label="Descer para a se??o Contato" />
+          <a className="section-scroll" href="#contato" aria-label="Descer para Contato" />
         </section>
 
         <section id="contato" className="contact-section">
