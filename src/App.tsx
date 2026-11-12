@@ -306,7 +306,7 @@ export default function App() {
                       <span>⑂ {repo.forks_count}</span>
                     </div>
                     <div className="project-links">
-                      {homepage && <a className="project-demo-link" href={homepage} target="_blank" rel="noopener noreferrer">Abrir site do projeto ↗</a>}
+                      {homepage && repo.name.toLowerCase() !== 'portfolio-tarciano' && <a className="project-demo-link" href={homepage} target="_blank" rel="noopener noreferrer">Abrir site do projeto ↗</a>}
                       {codeUrl && <a href={codeUrl} target="_blank" rel="noopener noreferrer">Ver código ↗</a>}
                     </div>
                   </article>
