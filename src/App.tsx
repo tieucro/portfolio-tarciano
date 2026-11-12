@@ -1,3 +1,4 @@
+import { certificates } from './certificates'
 import { useEffect, useState } from 'react'
 import profileSmall from './profile-288.jpg'
 import profileLarge from './profile-576.jpg'
@@ -213,6 +214,7 @@ export default function App() {
               <a className="nav-link" onClick={() => setMenuOpen(false)} href="#sobre">Sobre</a>
               <a className="nav-link" onClick={() => setMenuOpen(false)} href="#skills">Habilidades</a>
               <a className="nav-link" onClick={() => setMenuOpen(false)} href="#projetos">Projetos</a>
+              <a className="nav-link" onClick={() => setMenuOpen(false)} href="#certificados">Certificados</a>
               <a className="nav-link" onClick={() => setMenuOpen(false)} href="#contato">Contato</a>
               <button className="theme-btn" onClick={() => setDark(v => !v)} aria-label="Alternar tema">{dark ? '☼' : '☾'}</button>
             </div>
@@ -320,6 +322,35 @@ export default function App() {
             })}
           </div>
           <a className="section-scroll" href="#contato" aria-label="Descer para a seção Contato" />
+        </section>
+
+        <section id="certificados" className="section section-alt" aria-labelledby="certificates-title">
+          <div className="container">
+            <h2 id="certificates-title">Certificados</h2>
+            {certificates.length === 0 ? (
+              <p>Nenhum certificado publicado.</p>
+            ) : (
+              <ul className="row g-3 list-unstyled mb-0">
+                {certificates.map(({ title, issuer, year, verificationUrl }) => {
+                  const verification = safeExternalUrl(verificationUrl ?? null)
+                  return (
+                    <li className="col-md-6 col-lg-4" key={JSON.stringify([title, issuer, year])}>
+                      <article className="project-card">
+                        <h3>{title}</h3>
+                        <p>{issuer} ? {year}</p>
+                        {verification && (
+                          <a href={verification} target="_blank" rel="noopener noreferrer" aria-label={'Verificar certificado de ' + title}>
+                            Verificar certificado ?
+                          </a>
+                        )}
+                      </article>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+          <a className="section-scroll" href="#contato" aria-label="Descer para a se??o Contato" />
         </section>
 
         <section id="contato" className="contact-section">
