@@ -49,6 +49,17 @@ function ProjectScreenshot({ name, src }: { name: string; src: string }) {
   )
 }
 
+const projectDescriptions: Record<string, string> = {
+  'portfolio-tarciano': 'Portfólio que apresenta minhas habilidades, reúne projetos do GitHub e oferece links para contato profissional.',
+  tieucro: 'Perfil do GitHub com minha apresentação, as tecnologias que uso e links para projetos em destaque.',
+  mammamia: 'Site de pizzaria com cadastro e login para clientes e funcionários, além de telas para consultar e cadastrar pizzas e bebidas.',
+  power_bi_analyst: 'Materiais, exercícios e bases de dados da formação Power BI Analyst, organizados por módulo.',
+  'projeto-web': 'Site acadêmico que reúne quatro exercícios de programação web, acessíveis pelo menu de questões.',
+  projetointegradoriii: 'Estrutura inicial de um aplicativo Android em Java, com uma atividade principal e um layout base em XML.',
+  projetowebav2: 'Sistema acadêmico em PHP e MySQL para cadastrar, consultar, editar e excluir registros em um painel web.',
+  projetoweb_av1: 'Site de exercícios de programação web com cálculo de média escolar e IMC, além de formulários de carnê e contracheque.',
+}
+
 const tarscallsScreens = [
   { file: 'comunidade.jpg', label: 'Painel inicial', alt: 'Painel do TarScalls com servidores, transmissões e controles de chamada rápida' },
   { file: 'descobrir.jpg', label: 'Comunidades', alt: 'Área de descoberta de servidores do TarScalls' },
@@ -271,6 +282,7 @@ export default function App() {
           {!reposLoading && !reposError && githubRepos.length === 0 && <p className="repo-status">Nenhum repositório público próprio foi encontrado. Confira o <a href="https://github.com/tieucro" target="_blank" rel="noopener noreferrer">perfil do GitHub</a>.</p>}
           <div className="row g-4">
             {githubRepos.filter(repo => !isTarscalls(repo)).map(repo => {
+              const description = projectDescriptions[repo.name.toLowerCase()] ?? repo.description
               const codeUrl = safeExternalUrl(repo.html_url, 'https://github.com')
               const pagesUrl = repo.has_pages
                 ? repo.name.toLowerCase() === 'tieucro.github.io'
@@ -287,7 +299,7 @@ export default function App() {
                   <article className="project-card github-project-card">
                     {screenshot && <ProjectScreenshot key={screenshot} name={repo.name} src={screenshot} />}
                     <h3>{repo.name.replace(/[-_]/g, ' ')}</h3>
-                    <p>{repo.description || 'Repositório público de código. Acesse o GitHub para ver os arquivos e detalhes do projeto.'}</p>
+                    {description && <p>{description}</p>}
                     <div className="tags">
                       {repo.language && <span>{repo.language}</span>}
                       <span>★ {repo.stargazers_count}</span>
