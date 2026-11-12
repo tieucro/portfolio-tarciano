@@ -332,7 +332,7 @@ export default function App() {
             <h2>Vamos construir algo <span>incrível?</span></h2>
             <p>Estou aberto a projetos, oportunidades e novas conexões profissionais.</p>
             <a className="btn btn-primary-custom mt-3" href="mailto:tarcianobezerra2@gmail.com">Enviar mensagem ✉</a>
-            <div className="socials mt-4"><a href="https://github.com/tieucro" target="_blank" rel="noopener noreferrer">GitHub</a><a href="#">LinkedIn</a><a href="mailto:tarcianobezerra2@gmail.com">E-mail</a></div>
+            <div className="socials mt-4"><a href="https://github.com/tieucro" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/tarciano-bezerra-957698246/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="mailto:tarcianobezerra2@gmail.com">E-mail</a></div>
           </div>
         </section>
       </main>
