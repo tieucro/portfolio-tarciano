@@ -151,7 +151,12 @@ export default function App() {
         }
 
         if (controller.signal.aborted) return
-        setGithubRepos(Array.from(repos.values()))
+        const projects = Array.from(repos.values())
+        projects.sort((first, second) =>
+          Number(first.name.toLowerCase() === 'portfolio-tarciano') -
+          Number(second.name.toLowerCase() === 'portfolio-tarciano'),
+        )
+        setGithubRepos(projects)
         setReposError(false)
       } catch {
         if (!controller.signal.aborted) setReposError(true)
