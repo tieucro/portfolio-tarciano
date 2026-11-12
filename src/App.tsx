@@ -100,7 +100,6 @@ function FeaturedProject({ repo }: { repo?: GitHubRepo }) {
 }
 
 export default function App() {
-  const [liveProject, setLiveProject] = useState<number | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [dark, setDark] = useState(true)
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([])
@@ -282,12 +281,11 @@ export default function App() {
               const screenshot = homepage
                 ? 'https://image.thum.io/get/width/800/crop/675/noanimate/?url=' + encodeURIComponent(homepage)
                 : undefined
-              const isLive = liveProject === repo.id
 
               return (
-                <div className={isLive ? 'col-12' : 'col-md-6 col-lg-4'} key={repo.id}>
+                <div className="col-md-6 col-lg-4" key={repo.id}>
                   <article className="project-card github-project-card">
-                    {screenshot && !isLive && <ProjectScreenshot key={screenshot} name={repo.name} src={screenshot} />}
+                    {screenshot && <ProjectScreenshot key={screenshot} name={repo.name} src={screenshot} />}
                     <h3>{repo.name.replace(/[-_]/g, ' ')}</h3>
                     <p>{repo.description || 'Repositório público de código. Acesse o GitHub para ver os arquivos e detalhes do projeto.'}</p>
                     <div className="tags">
@@ -296,28 +294,9 @@ export default function App() {
                       <span>⑂ {repo.forks_count}</span>
                     </div>
                     <div className="project-links">
-                      {homepage && (
-                        <button
-                          type="button"
-                          className="project-demo-toggle"
-                          aria-expanded={isLive}
-                          onClick={() => setLiveProject(isLive ? null : repo.id)}
-                        >
-                          {isLive ? 'Fechar demonstração' : 'Testar ao vivo'}
-                        </button>
-                      )}
                       {homepage && <a className="project-demo-link" href={homepage} target="_blank" rel="noopener noreferrer">Abrir site do projeto ↗</a>}
                       {codeUrl && <a href={codeUrl} target="_blank" rel="noopener noreferrer">Ver código ↗</a>}
                     </div>
-                    {isLive && homepage && (
-                      <iframe
-                        className="project-live-frame"
-                        title={'Demonstração de ' + repo.name}
-                        src={homepage}
-                        sandbox="allow-scripts allow-forms"
-                        referrerPolicy="no-referrer"
-                      />
-                    )}
                   </article>
                 </div>
               )

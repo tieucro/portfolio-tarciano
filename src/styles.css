@@ -45,24 +45,6 @@ footer { padding:25px 12px; border-top:1px solid var(--line); color:var(--muted)
   background: var(--surface2);
 }
 .github-project-card .project-screenshot-status { min-height: 0; flex: none; }
-.project-demo-toggle {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font-size: .9rem;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.project-live-frame {
-  width: 100%;
-  height: clamp(360px, 70vh, 760px);
-  margin-top: 20px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #fff;
-}
 .project-links .project-demo-link { text-decoration: underline; text-underline-offset: 3px; }
 
 .github-project-card h3 { text-transform:capitalize; overflow-wrap:anywhere; }
